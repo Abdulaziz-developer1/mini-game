@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penalty Shootout</title>
+    <link rel="icon" href="logo.webp">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: green;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .goal {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            background: transparent;
+            border: 5px solid black;
+            margin-bottom: 20px;
+            border-bottom: none;
+        }
+
+        .goalkeeper {
+            position: absolute;
+            bottom: 100px;
+            left: 35%;
+            width: 60px;
+            height: 80px;
+            background: url('https://i.imgur.com/7DDrksH.png') no-repeat center/cover; /* GK image */
+            transform: translateX(-50%);
+            transition: transform 0.5s ease-out;
+        }
+
+        .goalkeeper img{
+            width: 200px;
+        }
+
+        .ball {
+            position: absolute;
+            bottom: -20px;
+            left: 45%;
+            width: 30px;
+            height: 30px;
+            background: url('https://i.imgur.com/zWFUyLn.png') no-repeat center/cover; /* Ball image */
+            transform: translateX(-50%);
+            transition: transform 0.7s ease-out;
+        }
+
+        .ball img{
+            width: 75px;
+            height: 75px;
+        }
+
+        /* Diving Animations */
+        .gk-left { transform: translateX(-140px) translateY(10px) rotate(-30deg); }
+        .gk-right { transform: translateX(80px) translateY(-30px) rotate(30deg); }
+        .gk-center { transform: translateX(-50%) translateY(-30px); }
+
+        /* Ball Movement */
+        .ball-left { transform: translateX(-100px) translateY(-180px); }
+        .ball-right { transform: translateX(80px) translateY(-180px); }
+        .ball-center { transform: translateX(-50%) translateY(-180px); }
+
+        .message {
+            font-size: 300px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px black;
+            display: none;
+            position: absolute;
+            z-index: 1000;
+        }
+
+        .restart{
+            width: 350px;
+            height: 110px;
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            outline: none;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 10px;
+            margin-top: 100px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .restart2{
+            width: 80%;
+            height: 80%;
+            border: none;
+            background: #000;
+            font-size: 20px;
+            cursor: pointer;
+            outline: none;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+        .restart button{
+            width: 300px;
+            height: 50px;
+        }
+        
+        .button{
+            width: 300px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+   </style>
+</head>
+<body>
+
+    <h1 class="message" id="result"></h1>
+
+    <div class="goal">
+        <div class="goalkeeper">
+            <img src="gk.png" alt="gk">
+        </div>
+        <div class="ball">
+            <img src="ball.png" alt="ball">
+        </div>
+    </div>
+    <button class="button" onclick="shoot()">Shoot</button>
+    <a href="" class="restart"><button class="restart2">RESTART</button></a>
+
+    <script>
+        function shoot() {
+            const goalkeeper = document.querySelector('.goalkeeper');
+            const ball = document.querySelector('.ball');
+            const message = document.getElementById('result');
+
+            const directions = ["left", "center", "right"];
+            const randomGK = directions[Math.floor(Math.random() * directions.length)];
+            const randomBall = directions[Math.floor(Math.random() * directions.length)];
+
+            // Reset classes
+            goalkeeper.className = "goalkeeper";
+            ball.className = "ball";
+            message.style.display = "none";
+
+            // Add movement classes
+            goalkeeper.classList.add(`gk-${randomGK}`);
+            ball.classList.add(`ball-${randomBall}`);
+
+            // Determine if it's a goal or miss
+            setTimeout(() => {
+                if (randomGK === randomBall) {
+                    message.textContent = "MISS!!!";
+                    message.style.color = "red";
+                } else {
+                    message.textContent = "GOAL!!!";
+                    message.style.color = "yellow";
+                }
+                message.style.display = "block";
+            }, 700); // Wait for animation
+        }
+    </script>
+
+</body>
+</html>
