@@ -69,7 +69,7 @@
         .ball-center { transform: translateX(-50%) translateY(-180px); }
 
         .message {
-            font-size: 300px;
+            font-size: 200px;
             font-weight: bold;
             color: white;
             text-shadow: 2px 2px 4px black;
@@ -121,6 +121,24 @@
             border-radius: 5px;
             font-size: 20px;
             cursor: pointer;
+        }
+
+        @media (max-width:750px) {
+            .message{
+                font-size: 170px;
+            }
+        }
+
+        @media (max-width:600px) {
+            .message{
+                font-size: 140px;
+            }
+        }
+
+        @media (max-width:500px) {
+            .message{
+                font-size: 120px;
+            }
         }
    </style>
 </head>
